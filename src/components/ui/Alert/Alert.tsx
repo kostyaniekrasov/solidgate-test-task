@@ -3,25 +3,12 @@ import { useCallback } from 'react';
 import { CheckCircle, XCircle, X } from 'lucide-react';
 import styles from './Alert.module.scss';
 import { AlertItem } from '@/types';
+import { alertVariants } from '@/constants';
 
 interface Props {
 	alert: AlertItem;
 	onClose: () => void;
 }
-
-const alertVariants = {
-	initial: { opacity: 0, x: 100, y: 0 },
-	animate: {
-		opacity: 1,
-		x: 0,
-		transition: { duration: 0.3, ease: 'easeOut' },
-	},
-	exit: {
-		opacity: 0,
-		x: 100,
-		transition: { duration: 0.3, ease: 'easeIn' },
-	},
-};
 
 const Alert = ({ alert, onClose }: Props) => {
 	const { type, message, id } = alert;
