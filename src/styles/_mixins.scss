@@ -1,4 +1,4 @@
-@mixin hover($styles, $duration: 0.2s, $ease: ease-in-out) {
+@mixin hover($styles, $duration: 80ms, $ease: ease-in-out) {
 	transition: all #{$duration} #{$ease};
 
 	&:hover {

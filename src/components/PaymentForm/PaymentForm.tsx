@@ -1,99 +1,196 @@
-import { Order } from '@/types';
-import { ApplePayButton } from '../ApplePayButton';
 import styles from './PaymentForm.module.scss';
+import { AlertItem, CardDetails, Order } from '@/types';
+import { ApplePayButton, FormField, PayButton } from '@/components';
 import { InfoIcon } from '@/assets';
 import { Tooltip } from 'react-tooltip';
+import { ChangeEvent, lazy, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { processPayment } from '@/services/paymentService';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Props {
 	orderInfo: Pick<Order, 'trial' | 'price' | 'afterTrial'>;
 }
 
+const AlertList = lazy(() => import('@/components/ui/AlertList/AlertList'));
+
 const PaymentForm = ({ orderInfo }: Props) => {
 	const { trial, price, afterTrial } = orderInfo;
+	const [isLoading, setIsLoading] = useState(false);
+	const [alerts, setAlerts] = useState<AlertItem[]>([]);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setValue,
+		clearErrors,
+	} = useForm<CardDetails>({
+		defaultValues: {
+			cardNumber: '',
+			expiryDate: '',
+			cvc: '',
+		},
+		mode: 'onSubmit',
+		reValidateMode: 'onSubmit',
+	});
+
+	const addAlert = (type: 'success' | 'error', message: string) => {
+		setAlerts((prev) => [...prev, { id: crypto.randomUUID(), type, message }]);
+	};
+
+	const removeAlert = (id: string) => {
+		setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+	};
+
+	const onSubmit: SubmitHandler<CardDetails> = async (data) => {
+		setIsLoading(true);
+
+		try {
+			const result = await processPayment(data);
+
+			addAlert(result.success ? 'success' : 'error', result.message);
+		} catch (error) {
+			addAlert('error', `${error}`);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	const handleApplePay = () => {
+		addAlert('error', 'This service is currently down');
+	};
+
+	const handleCardNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+		let value = e.target.value.replace(/\D/g, '');
+		value = value.replace(/(\d{4})/g, '$1 ').trim();
+		setValue('cardNumber', value);
+		clearErrors('cardNumber');
+	};
+
+	const handleExpiryChange = (e: ChangeEvent<HTMLInputElement>) => {
+		let value = e.target.value.replace(/\D/g, '');
+		if (value.length > 2) {
+			const month = parseInt(value.slice(0, 2), 10);
+			if (month > 12) {
+				value = `12${value.slice(2)}`;
+			}
+			value = `${value.slice(0, 2)}/${value.slice(2, 4)}`;
+		}
+		setValue('expiryDate', value);
+		clearErrors('expiryDate');
+	};
+
+	const handleCvcChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setValue('cvc', value);
+		clearErrors('cvc');
+	};
+
 	return (
-		<form className={styles.paymentForm}>
-			<div className={styles.paymentFormTrialBox}>
-				<h2 className={styles.paymentFormTrialBoxTrial}>{trial}</h2>
-				<p className={styles.paymentFormAfterTrial}>{afterTrial}</p>
-			</div>
-
-			<div className={styles.paymentFormAppleButton}>
-				<ApplePayButton />
-			</div>
-
-			<div className={styles.paymentFormDivider}>or pay with card</div>
-
-			<div className={styles.paymentFormFields}>
-				<div className={styles.paymentFormField}>
-					<label htmlFor="cardNumber" className={styles.paymentFormFieldLabel}>
-						Card Number
-					</label>
-
-					<input
-						type="text"
-						id="cardNumber"
-						name="cardNumber"
-						placeholder="1234 1234 1234 1234"
-						className={styles.paymentFormFieldInput}
-					/>
+		<AnimatePresence mode="wait">
+			<motion.form
+				onSubmit={handleSubmit(onSubmit)}
+				className={styles.paymentForm}
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.2 }}
+			>
+				<div className={styles.paymentFormTrialBox}>
+					<h2 className={styles.paymentFormTrialBoxTrial}>{trial}</h2>
+					<p className={styles.paymentFormAfterTrial}>{afterTrial}</p>
 				</div>
 
-				<div className={styles.paymentFormRow}>
-					<div className={styles.paymentFormField}>
-						<label htmlFor="expiry" className={styles.paymentFormFieldLabel}>
-							Expiration Date
-						</label>
+				<div className={styles.paymentFormAppleButton}>
+					<ApplePayButton onClick={handleApplePay} />
+				</div>
 
-						<input
-							type="text"
-							id="expiry"
-							name="expiry"
+				<div className={styles.paymentFormDivider}>or pay with card</div>
+
+				<div className={styles.paymentFormFields}>
+					<FormField
+						label="Card Number"
+						id="cardNumber"
+						placeholder="1234 1234 1234 1234"
+						{...register('cardNumber', {
+							required: 'Card number is required',
+							pattern: {
+								value: /^\d{4} \d{4} \d{4} \d{4}$/,
+								message:
+									'The card number must be in the format 1234 1234 1234 1234',
+							},
+						})}
+						onChange={handleCardNumberChange}
+						maxLength={19}
+						error={errors.cardNumber?.message}
+					/>
+
+					<div className={styles.paymentFormRow}>
+						<FormField
+							label="Expiration Date"
+							id="expiryDate"
 							placeholder="MM/YY"
-							className={styles.paymentFormFieldInput}
+							{...register('expiryDate', {
+								required: 'Expiry date is required',
+								pattern: {
+									value: /^\d{2}\/\d{2}$/,
+									message: 'The date must be in MM/YY format',
+								},
+							})}
+							onChange={handleExpiryChange}
+							maxLength={5}
+							error={errors.expiryDate?.message}
 						/>
-					</div>
 
-					<div className={styles.paymentFormField}>
-						<label htmlFor="cvc" className={styles.paymentFormFieldLabel}>
-							CVC
-						</label>
-
-						<div className={styles.paymentFormCvcWrapper}>
-							<input
-								type="password"
-								id="cvc"
-								name="cvc"
-								placeholder="•••"
-								className={styles.paymentFormFieldInput}
-							/>
-
+						<FormField
+							label="CVC"
+							id="cvc"
+							placeholder="•••"
+							type="password"
+							{...register('cvc', {
+								required: 'CVC is required',
+								pattern: {
+									value: /^\d{3}$/,
+									message: 'CVC must consist of 3 digits',
+								},
+							})}
+							onChange={handleCvcChange}
+							maxLength={3}
+							error={errors.cvc?.message}
+						>
 							<InfoIcon
 								data-tooltip-id="my-tooltip"
 								data-tooltip-content="The 3-digit code on the back of your card."
-								className={styles.paymentFormCvcWrapperIcon}
+								className={styles.paymentFormInfoIcon}
 							/>
-						</div>
+						</FormField>
 					</div>
 				</div>
-			</div>
 
-			<button
-				className={styles.paymentFormPayButton}
-			>{`Pay ${price} UAH`}</button>
-			<Tooltip id="my-tooltip" />
+				<div className={styles.paymentFormPayButtonContainer}>
+					<PayButton
+						price={price}
+						isLoading={isLoading}
+						type="submit"
+						disabled={isLoading}
+					/>
+				</div>
 
-			<p className={styles.paymentFormDescription}>
-				You'll have your{' '}
-				<span className={styles.paymentFormDescriptionStrong}>
-					Plan Pro during 1 year
-				</span>
-				. After this period of time, your plan will be{' '}
-				<span className={styles.paymentFormDescriptionStrong}>
-					automatically renewed
-				</span>{' '}
-				with its original price without any discounts applied.
-			</p>
-		</form>
+				<p className={styles.paymentFormDescription}>
+					You'll have your{' '}
+					<span className={styles.paymentFormDescriptionStrong}>
+						Plan Pro during 1 year
+					</span>
+					. After this period of time, your plan will be{' '}
+					<span className={styles.paymentFormDescriptionStrong}>
+						automatically renewed
+					</span>{' '}
+					with its original price without any discounts applied.
+				</p>
+
+				<Tooltip id="my-tooltip" />
+				<AlertList alerts={alerts} removeAlert={removeAlert} />
+			</motion.form>
+		</AnimatePresence>
 	);
 };
 

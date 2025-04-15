@@ -1,7 +1,7 @@
 interface CardDetails {
 	cardNumber: string;
 	expiryDate: string;
-	cvv: string;
+	cvc: string;
 }
 
 export default CardDetails;

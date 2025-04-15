@@ -2,7 +2,7 @@ import PaymentError from './PaymentError';
 
 interface PaymentResult {
 	success: boolean;
-	message?: string;
+	message: string;
 	errors?: PaymentError[];
 }
 

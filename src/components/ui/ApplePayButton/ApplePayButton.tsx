@@ -2,9 +2,13 @@ import styles from './ApplePayButton.module.scss';
 
 import { ApplePayIcon } from '@/assets';
 
-const ApplePayButton = () => {
+interface Props {
+	onClick: () => void;
+}
+
+const ApplePayButton = ({ onClick }: Props) => {
 	return (
-		<button type="button" className={styles.applePayButton}>
+		<button type="button" className={styles.applePayButton} onClick={onClick}>
 			<ApplePayIcon />
 		</button>
 	);
