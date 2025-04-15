@@ -1,0 +1,9 @@
+@mixin hover($styles, $duration: 0.2s, $ease: ease-in-out) {
+	transition: all #{$duration} #{$ease};
+
+	&:hover {
+		@each $prop, $val in $styles {
+			#{$prop}: #{$val};
+		}
+	}
+}

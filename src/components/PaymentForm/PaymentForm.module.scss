@@ -1,0 +1,150 @@
+@import '../../styles/index.scss';
+
+.payment-form {
+	width: 480px;
+	margin: auto;
+
+	&__trial-box {
+		color: $primary-color;
+		margin-bottom: 48px;
+		&--trial {
+			font-weight: 600;
+			font-size: 32px;
+			line-height: 40px;
+		}
+	}
+
+	&--after-trial {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	&__apple-button {
+		margin-bottom: 24px;
+	}
+
+	&__divider {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		color: $secondary-color;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 24px;
+		margin-bottom: 16px;
+
+		&::before,
+		&::after {
+			content: '';
+			flex: 1;
+			border-bottom: 1px solid $divider-color;
+		}
+
+		&::before {
+			margin-right: 16px;
+		}
+
+		&::after {
+			margin-left: 16px;
+		}
+	}
+
+	&__fields {
+		display: flex;
+		gap: 12px;
+		flex-direction: column;
+		margin-bottom: 16px;
+	}
+
+	&__row {
+		display: flex;
+		gap: 8px;
+	}
+
+	&__field {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		color: $secondary-color;
+		width: 100%;
+
+		&--label {
+			font-weight: 500;
+			font-size: 12px;
+			line-height: 16px;
+			transition: all 0.2s ease-in;
+		}
+
+		&--input {
+			width: 100%;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 24px;
+			padding: 10px 12px;
+			border: 1px solid $textfield-default-color;
+			border-radius: 6px;
+			transition: all 0.2s ease-in;
+
+			box-shadow: 0px 2px 4px -2px #0000001f;
+		}
+
+		&:hover {
+			.payment-form__field--label {
+				color: $primary-color;
+			}
+
+			.payment-form__field--input {
+				border-color: $secondary-color;
+			}
+		}
+	}
+
+	&__cvc-wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+
+		&--icon {
+			position: absolute;
+			right: 13px;
+			color: $tertiary-color;
+			cursor: pointer;
+
+			@include hover(
+				(
+					color: $secondary-color,
+				)
+			);
+		}
+	}
+
+	&__pay-button {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: $green-color;
+		border-radius: 6px;
+		padding: 12px 16px;
+		font-weight: 600;
+		line-height: 24px;
+		font-size: 16px;
+		color: $white-color;
+
+		margin-bottom: 8px;
+	}
+
+	&__description {
+		padding: 16px;
+		font-size: 12px;
+		line-height: 16px;
+		color: $secondary-color;
+		border: 1px solid $divider-color;
+		border-radius: 8px;
+		&--strong {
+			font-weight: 600;
+		}
+	}
+}
