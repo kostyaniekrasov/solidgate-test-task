@@ -1,10 +1,13 @@
 import './App.css';
+import { AlertProvider } from './context/AlertContext';
 import { PaymentPage } from './pages';
 
 function App() {
 	return (
 		<div>
-			<PaymentPage />
+			<AlertProvider>
+				<PaymentPage />
+			</AlertProvider>
 		</div>
 	);
 }

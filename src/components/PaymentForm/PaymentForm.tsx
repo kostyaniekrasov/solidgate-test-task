@@ -1,24 +1,21 @@
 import styles from './PaymentForm.module.scss';
-import { AlertItem, CardDetails, Order } from '@/types';
+import { CardDetails, Order } from '@/types';
 import { ApplePayButton, FormField, PayButton } from '@/components';
 import { InfoIcon } from '@/assets';
 import { Tooltip } from 'react-tooltip';
-import { lazy, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { processPayment } from '@/services/paymentService';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFormFieldChange } from '@/hooks';
+import { useAlert, useFormFieldChange } from '@/hooks';
 
 interface Props {
 	orderInfo: Pick<Order, 'trial' | 'price' | 'afterTrial'>;
 }
 
-const AlertList = lazy(() => import('@/components/ui/AlertList/AlertList'));
-
 const PaymentForm = ({ orderInfo }: Props) => {
 	const { trial, price, afterTrial } = orderInfo;
 	const [isLoading, setIsLoading] = useState(false);
-	const [alerts, setAlerts] = useState<AlertItem[]>([]);
 	const {
 		register,
 		handleSubmit,
@@ -38,13 +35,7 @@ const PaymentForm = ({ orderInfo }: Props) => {
 	const { handleCardNumberChange, handleCvcChange, handleExpiryChange } =
 		useFormFieldChange({ setValue, clearErrors });
 
-	const addAlert = (type: 'success' | 'error', message: string) => {
-		setAlerts((prev) => [...prev, { id: crypto.randomUUID(), type, message }]);
-	};
-
-	const removeAlert = (id: string) => {
-		setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-	};
+	const { addAlert } = useAlert();
 
 	const onSubmit: SubmitHandler<CardDetails> = async (data) => {
 		setIsLoading(true);
@@ -166,7 +157,6 @@ const PaymentForm = ({ orderInfo }: Props) => {
 				</p>
 
 				<Tooltip id="my-tooltip" />
-				<AlertList alerts={alerts} removeAlert={removeAlert} />
 			</motion.form>
 		</AnimatePresence>
 	);

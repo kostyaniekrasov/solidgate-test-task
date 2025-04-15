@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
+import React, { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './FormField.module.scss';
 interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -64,4 +64,4 @@ const FormField = ({
 	);
 };
 
-export default FormField;
+export default React.memo(FormField);
