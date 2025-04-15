@@ -3,10 +3,11 @@ import { AlertItem, CardDetails, Order } from '@/types';
 import { ApplePayButton, FormField, PayButton } from '@/components';
 import { InfoIcon } from '@/assets';
 import { Tooltip } from 'react-tooltip';
-import { ChangeEvent, lazy, useState } from 'react';
+import { lazy, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { processPayment } from '@/services/paymentService';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useFormFieldChange } from '@/hooks';
 
 interface Props {
 	orderInfo: Pick<Order, 'trial' | 'price' | 'afterTrial'>;
@@ -34,6 +35,9 @@ const PaymentForm = ({ orderInfo }: Props) => {
 		reValidateMode: 'onSubmit',
 	});
 
+	const { handleCardNumberChange, handleCvcChange, handleExpiryChange } =
+		useFormFieldChange({ setValue, clearErrors });
+
 	const addAlert = (type: 'success' | 'error', message: string) => {
 		setAlerts((prev) => [...prev, { id: crypto.randomUUID(), type, message }]);
 	};
@@ -58,32 +62,6 @@ const PaymentForm = ({ orderInfo }: Props) => {
 
 	const handleApplePay = () => {
 		addAlert('error', 'This service is currently down');
-	};
-
-	const handleCardNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-		let value = e.target.value.replace(/\D/g, '');
-		value = value.replace(/(\d{4})/g, '$1 ').trim();
-		setValue('cardNumber', value);
-		clearErrors('cardNumber');
-	};
-
-	const handleExpiryChange = (e: ChangeEvent<HTMLInputElement>) => {
-		let value = e.target.value.replace(/\D/g, '');
-		if (value.length > 2) {
-			const month = parseInt(value.slice(0, 2), 10);
-			if (month > 12) {
-				value = `12${value.slice(2)}`;
-			}
-			value = `${value.slice(0, 2)}/${value.slice(2, 4)}`;
-		}
-		setValue('expiryDate', value);
-		clearErrors('expiryDate');
-	};
-
-	const handleCvcChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		setValue('cvc', value);
-		clearErrors('cvc');
 	};
 
 	return (
