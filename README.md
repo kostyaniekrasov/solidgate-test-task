@@ -1,54 +1,68 @@
-# React + TypeScript + Vite
+## Navigation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+- [Screenshot](#screenshot)
+- [Technologies Used](#technologies-used)
+- [Author](#author)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Demo 
+## [Link](https://kostyaniekrasov.github.io/solidgate-test-task/)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository:
+  ```bash
+  git clone https://github.com/kostyaniekrasov/wt-test-task.git
+  ```
+2. Install dependencies:
+  ```bash
+  npm install
+  ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+3. Run the development server:
+```bash
+npm run dev
+```
+4. Open your browser and navigate to
+```bash
+http://localhost:5173/solidgate-test-task/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Screenshot
 
-```js
-// eslint.config.js
-import reactDom from 'eslint-plugin-react-dom';
-import reactX from 'eslint-plugin-react-x';
+|                                    |                                  |
+|-----------------------------------------------|-----------------------------------------------|
+| ![image](https://github.com/user-attachments/assets/bec8b315-6f13-4ef5-9b4e-99def1341a98) |![image](https://github.com/user-attachments/assets/aab41c57-5543-4b7e-927b-98669261b87b) |
+|                                 |                               |
+| ![image](https://github.com/user-attachments/assets/a4ccfd2e-6046-4275-811b-96feea9eee69) | ![image](https://github.com/user-attachments/assets/71bee03c-07dd-42df-a003-682bd4b1e972) |
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+
+
+## Technologies Used
+- [vite](https://vite.dev/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prettier](https://prettier.io/) 
+- [@trivago/prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
+- [ESLint](https://eslint.org/) 
+- [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 
+- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 
+- [Framer Motion](https://www.framer.com/motion/)
+- [react-hook-form](https://react-hook-form.com/)
+- [react-tooltip](https://www.npmjs.com/package/react-tooltip)
+- [lucide-react](https://www.npmjs.com/package/lucide-react)
+- [sass](https://www.npmjs.com/package/sass)
+- [typed-scss-modules](https://www.npmjs.com/package/typed-scss-modules)
+
+
+## Author
+
+👤 **Kostya Niekrasov**
+
+- Github: [@kostyaniekrasov](https://github.com/kostyaniekrasov)
+- LinkedIn: [@kostiantyn-niekrasov](https://www.linkedin.com/in/kostiantyn-niekrasov)
+- Telegram: [@niekrasov_15](https://t.me/niekrasov_15)
+
+
