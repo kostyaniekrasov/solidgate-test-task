@@ -1,6 +1,8 @@
 export declare const paymentForm: string;
 export declare const paymentFormAfterTrial: string;
 export declare const paymentFormAppleButton: string;
+export declare const paymentFormCheckoutBox: string;
+export declare const paymentFormCheckoutBoxButton: string;
 export declare const paymentFormDescription: string;
 export declare const paymentFormDescriptionStrong: string;
 export declare const paymentFormDivider: string;

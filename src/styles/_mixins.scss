@@ -1,9 +1,9 @@
 @mixin hover($styles, $duration: 80ms, $ease: ease-in-out) {
-	transition: all #{$duration} #{$ease};
+  transition: all #{$duration} #{$ease};
 
-	&:hover {
-		@each $prop, $val in $styles {
-			#{$prop}: #{$val};
-		}
-	}
+  &:hover {
+    @each $prop, $val in $styles {
+      #{$prop}: #{$val};
+    }
+  }
 }

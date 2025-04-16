@@ -1,93 +1,110 @@
 @import '../../styles/index.scss';
 
 .payment-form {
-	width: 480px;
-	margin: auto;
+  width: 420px;
 
-	&__trial-box {
-		color: $primary-color;
-		margin-bottom: 48px;
-		&--trial {
-			font-weight: 600;
-			font-size: 32px;
-			line-height: 40px;
-		}
-	}
+  &__checkout-box {
+    position: relative;
+    margin-bottom: 16px;
 
-	&--after-trial {
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 24px;
-	}
+    &--button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transform: translateX(-28px);
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 40px;
+      color: $primary-color;
+      background-color: transparent;
+    }
+  }
+  &__trial-box {
+    color: $primary-color;
+    margin-bottom: 24px;
 
-	&__apple-button {
-		margin-bottom: 24px;
-	}
+    &--trial {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 40px;
+    }
+  }
 
-	&__divider {
-		display: flex;
-		align-items: center;
-		text-align: center;
-		color: $secondary-color;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 24px;
-		margin-bottom: 16px;
+  &--after-trial {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
 
-		&::before,
-		&::after {
-			content: '';
-			flex: 1;
-			border-bottom: 1px solid $divider-color;
-		}
+  &__apple-button {
+    margin-bottom: 24px;
+  }
 
-		&::before {
-			margin-right: 16px;
-		}
+  &__divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $secondary-color;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 16px;
 
-		&::after {
-			margin-left: 16px;
-		}
-	}
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid $divider-color;
+    }
 
-	&__fields {
-		display: flex;
-		gap: 12px;
-		flex-direction: column;
-		margin-bottom: 16px;
-	}
+    &::before {
+      margin-right: 16px;
+    }
 
-	&__row {
-		display: flex;
-		gap: 8px;
-	}
+    &::after {
+      margin-left: 16px;
+    }
+  }
 
-	&__pay-button-container {
-		margin-bottom: 8px;
-	}
+  &__fields {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
 
-	&__description {
-		padding: 16px;
-		font-size: 12px;
-		line-height: 16px;
-		color: $secondary-color;
-		border: 1px solid $divider-color;
-		border-radius: 8px;
-		&--strong {
-			font-weight: 600;
-		}
-	}
+  &__row {
+    display: flex;
+    gap: 8px;
+  }
 
-	&__info-icon {
-		position: absolute;
-		right: 13px;
-		color: $tertiary-color;
-		cursor: pointer;
+  &__pay-button-container {
+    margin-bottom: 8px;
+  }
 
-		@include hover(
-			(
-				color: $secondary-color,
-			)
-		);
-	}
+  &__description {
+    padding: 11px 16px;
+    font-size: 12px;
+    line-height: 16px;
+    color: $secondary-color;
+    border: 1px solid $divider-color;
+    border-radius: 8px;
+
+    &--strong {
+      font-weight: 600;
+    }
+  }
+
+  &__info-icon {
+    position: absolute;
+    right: 13px;
+    color: $tertiary-color;
+    cursor: pointer;
+
+    @include hover(
+      (
+        color: $secondary-color,
+      )
+    );
+  }
 }

@@ -1,0 +1,64 @@
+@import '../../styles/index.scss';
+
+.order {
+  padding: 32px 32px 40px;
+  background-color: $order-bg-color;
+  border-radius: 8px;
+  color: $primary-color;
+  width: 420px;
+  height: min-content;
+
+  &__text-right {
+    text-align: right;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__info {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+
+  &__description {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  &__divider {
+    height: 1px;
+    background-color: $order-divider-color;
+  }
+
+  &__name {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__type {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-color;
+    padding: 2px 0;
+  }
+
+  &__trial {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__after-trial {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
