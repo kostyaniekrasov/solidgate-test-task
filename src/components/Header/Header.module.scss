@@ -1,0 +1,28 @@
+.header {
+  max-width: 872px;
+  padding: 8px 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+
+  &__lang-wrapper {
+    display: flex;
+  }
+
+  &__button-wrapper {
+    padding: 8px;
+  }
+
+  &__button {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: transparent;
+    color: $tertiary-color;
+    cursor: pointer;
+
+    &--active {
+      color: $primary-color;
+    }
+  }
+}
