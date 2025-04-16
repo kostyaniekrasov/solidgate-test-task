@@ -1,14 +1,15 @@
 import './App.css';
-import { Header } from './components';
+import { Footer, Header } from './components';
 import { AlertProvider } from './context/AlertContext';
 import { PaymentPage } from './pages';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <AlertProvider>
         <Header />
         <PaymentPage />
+        <Footer />
       </AlertProvider>
     </div>
   );

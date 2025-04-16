@@ -65,7 +65,11 @@ const PaymentForm = ({ orderInfo }: Props) => {
         transition={{ duration: 0.2 }}
       >
         <div className={styles.paymentFormCheckoutBox}>
-          <button className={styles.paymentFormCheckoutBoxButton}>
+          <button
+            className={styles.paymentFormCheckoutBoxButton}
+            type="button"
+            onClick={() => addAlert('error', `Checkout doesn't work yet`)}
+          >
             <ArrowLeftIcon />
             Checkout
           </button>
