@@ -1,10 +1,9 @@
 import js from '@eslint/js';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
 
 export default tseslint.config(
   { ignores: ['dist'] },
