@@ -4,14 +4,6 @@
 - [Getting Started](#getting-started)
 - [Screenshot](#screenshot)
 - [Technologies Used](#technologies-used)
-  - [Core](#core)
-  - [Styling & Formatting](#styling--formatting)
-  - [Linting](#linting)
-  - [Testing](#testing)
-  - [Animations](#animations)
-  - [Forms & Inputs](#forms--inputs)
-  - [Utilities](#utilities)
-
 - [Author](#author)
 
 
