@@ -1,1 +1,1 @@
-export { default as paymentService } from './paymentService';
+export { default as processPayment } from './processPayment';

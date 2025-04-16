@@ -1,6 +1,6 @@
 import { CardDetails, PaymentResult } from '@/types';
 
-export const processPayment = async (
+const processPayment = async (
   cardDetails: CardDetails,
 ): Promise<PaymentResult> => {
   //for loading simulation
@@ -16,3 +16,5 @@ export const processPayment = async (
 
   return { success: true, message: 'Payment successful!' };
 };
+
+export default processPayment;

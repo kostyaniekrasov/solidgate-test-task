@@ -2,7 +2,7 @@ import styles from './PaymentForm.module.scss';
 import { ArrowLeftIcon, InfoIcon } from '@/assets';
 import { ApplePayButton, FormField, PayButton } from '@/components';
 import { useAlert, useFormFieldChange } from '@/hooks';
-import { processPayment } from '@/services/paymentService';
+import { processPayment } from '@/services';
 import { CardDetails, Order } from '@/types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
